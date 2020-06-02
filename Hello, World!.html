@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello, World!
+    </title>
+    <script>
+        alert('Hello, World!');
+        document.write('Hello, World!');
+    </script>
+</head>
+<body>
+    <script>
+       
+let sum = 0;
+
+// 전체 숫자의 개수
+let  num = prompt('숫자의 개수를 입력하시오.');
+totalNumbers = parseInt(num,10);
+
+for(let i = 0; i<totalNumbers; i++) {
+    let value = prompt(i+ '번 숫자를 입력하시오');
+    sum += parseInt(value,10);
+}
+let avg = sum/totalNumbers;
+
+    </script>
+</body>
+</html>
