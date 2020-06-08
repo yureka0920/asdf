@@ -1,39 +1,40 @@
 
-let comScore = 0;
-let userScore =0;
-let shotsLeft = 15;
-let isComputerTurn = true;
+let computer ={
+    score:0,
+    percent2:0.5,
+    percent3:0.33
+};
+
+let user = {
+    score: 0,
+    percent2:0.5,
+    percent3:0.33
+};
+
+let game = {
+    isComputerTurn:true,
+    shotLeft:15
+};
+
 
 function onComputerShoot(){
-    if(!isComputerTurn)
+    if(!game.isComputerTurn)
     return;
 
-    let textElem = document.getElementById('text');
-
-    let comScoreElem = document.getElementById('computer-score');
+    updateAI();
 
     let shootType = Math.random() < 0.5 ? 2: 3;
 
-    if(shootType===2){
-        if(Math.random()<0.5){
-            showText('컴퓨터가 2점슛을 성공시켰습니다.');
-            updateComputerScore(2)
-            
+        if(Math.random()< computer['percent' + shootType]){
+            showText('컴퓨터가' + shootType + '점슛을 성공시켰습니다!')
+            updateComputerScore(shootType);
         }
+        
         else{
-            showText('컴퓨터가 2점슛을 실패했습니다.');
+            showText('컴퓨터가' + shootType + '점슛을 실패했습니다!');
         } 
-    }    
-    else{
-        if(Math.random()<0.33){
-            showText('컴퓨터가 3점슛을 성공시켰습니다.');
-            updateComputerScore(3)
-        }
-        else{
-            showText('컴퓨터가 3점슛을 실패했습니다.');
-        }
-    }
-    isComputerTurn = false;
+    
+    game.isComputerTurn = false;
     
     disableComputerButtons(true);
     disableUserButtons(false);
@@ -41,53 +42,37 @@ function onComputerShoot(){
 }
 
 function onUserShoot(shootType){
-    if(isComputerTurn)
+    if(game.isComputerTurn)
     return;
 
-    let textElem = document.getElementById('text');
-
-    let comScoreElem = document.getElementById('user-score');
-
-    
-
-    if(shootType===2){
-        if(Math.random()<0.5){
-            showText('컴퓨터가 2점슛을 성공시켰습니다.');
-            updateUserScore(2)
-        }
-        else{
-            showText('컴퓨터가 2점슛을 실패했습니다.');
-        } 
-    }    
-    else{
-        if(Math.random()<0.33){
-            showText('컴퓨터가 3점슛을 성공시켰습니다.');
-            updateUserScore(3)
-        }
-        else{
-            showText('컴퓨터가 3점슛을 실패했습니다.');
-        }
+    if(Math.random()<user['percent' + shootType]){
+        showText(shootType + '점슛이 성공했습니다!');
+        updateUserScore(shootType);
+    }
+    else {
+        showText(shootType + '점슛이 실패했습니다.');
+        
     }
     
-    isComputerTurn = true;
+    game.isComputerTurn = true;
 
     disableComputerButtons(false);
     disableUserButtons(true);
 
-    shotsLeft--;
+    game.shotLeft--;
 
     let shotsLeftElem = document.getElementById('shots-left');
-    shotsLeftElem.innerHTML = shotsLeft;
+    shotsLeftElem.innerHTML = game.shotLeft;
 
-    if(shotsLeft ===0){
-        if(userScore > comScore){
-        textElem.innerHTML = '승리했습니다';
+    if(game.shotLeft ===0){
+        if(user.score > computer.score){
+        showText('승리했습니다');
         }
-        else if(userScore < comScore){
-            textElem.innerHTML = '아쉽게도 졌습니다.';
+        else if(user.score < computer.score){
+            showText('아쉽게도 졌습니다.');
         }
         else {
-            textElem.innerHTML = '비겼습니다.';
+            showText('비겼습니다.');
         }
         
         
@@ -104,14 +89,14 @@ function showText(s){
 }
 
 function updateComputerScore(score){
-    comScore +=score;
+    computer.score +=score;
     let comScoreElem = document.getElementById('computer-score');
-    comScoreElem.innerHTML = comScore;
+    comScoreElem.innerHTML = computer.score;
 }
 function updateUserScore(score){
-    userScore +=score;
+    user.score +=score;
     let userScoreElem = document.getElementById('user-score');
-    userScoreElem.innerHTML = userScore;
+    userScoreElem.innerHTML = user.score;
 }
 
 function disableComputerButtons(flag){
@@ -127,3 +112,23 @@ function disableUserButtons(flag){
         }
 }
 
+function updateAI(){
+    let diff = user.score - computer.score;
+    if(diff>=10){
+        computer.percent2 = 0.7;
+        computer.percent3 = 0.43;
+    }
+    else if(diff>=6){
+        computer.percent2 = 0.6;
+        computer.percent3 = 0.38;
+    }
+    else if(diff<= -10){
+        computer.percent2 = 0.3;
+        computer.percent3 = 0.23;
+    } 
+    else if(diff <=-6){
+        computer.percent2 = 0.4;
+        computer.percent3 = 0.28;
+    }
+    
+}
