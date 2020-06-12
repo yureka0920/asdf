@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>패스트푸드점 찾기</title>
     <link rel="stylesheet" href="css.css" />
+    <script src="https://code.jquery.com/jquery-3.5.1.js" 
+    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" 
+    crossorigin="anonymous"></script>
+    <script src="script.js"></script>
 </head>
 <body>
     <div class="container">
@@ -20,6 +24,14 @@
             <div class="list"></div>
         </div>
         <div class="paging"></div>
+    </div>
+
+    <div id="item-template" class="item">
+        <div class="item-no"></div>
+        <div class="item-detail">
+            <div class="item-name"></div>
+            <div class="item-addr"></div>
+        </div>
     </div>
 </body>
 </html>
