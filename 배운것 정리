@@ -141,3 +141,13 @@
   .empty() = "";
   trigger() 특정 요소에 강제로 이벤트 발생, ex) 엔터키를 누르면 클릭이벤트 처리. => 클릭 또는 엔터로 같은 이벤트를 처리할 수 있다.
   
+  fetch API 사용법.
+  
+  fetch('파일명').then(function(response){
+  response.text().then(function(text){
+  asdf
+  })
+  })
+
+  then: 앞의 실행이 끝나면 뒤의 실행을 예약하는 함수.
+  response 객체:fetch API의 첫번째 실행함수의 인자로 오는 객체. 
